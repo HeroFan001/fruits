@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="data_fruits.js"></script>
+    <style>
+        .fruit{
+            justify-content: center;
+            flex-direction: row;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2px;
+            
+        }
+        p{
+            margin-top: 100px;
+        }
+        img{
+        width: 100px;
+        height: 100px;
+        padding-bottom: 20px;
+        }
+        .doboz{
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>fruits</h1>
+    <ol></ol>
+    <div class="fruit">
+
+    </div>
+    <ul></ul>
+    <script>
+        console.log(fruits);
+        fruits.forEach((obj)=>{
+            const li = document.createElement('li')
+            li.textContent=obj.image
+          //  document.querySelector('ul').appendChild(li)
+            document.querySelector('.fruit').innerHTML+=`<div class="doboz"><img class="img-fluid" src="img/${obj.image}"<p>${obj.descr}</p>></div>`
+
+        })
+
+    </script>
+</body>
+</html>
