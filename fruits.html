@@ -3,47 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="data_fruits.js"></script>
+    <title>fruits</title>
     <style>
-        .fruit{
-            justify-content: center;
-            flex-direction: row;
-            display: flex;
-            flex-wrap: wrap;
-            margin: 2px;
+        body {
+            font-family: Arial, sans-serif;
             
         }
-        p{
-            margin-top: 100px;
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: transparent;
+            color: darkgreen;
+            border-radius: 10px;
+            opacity: 1;
         }
-        img{
-        width: 100px;
-        height: 100px;
-        padding-bottom: 20px;
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
         }
-        .doboz{
-            
+        #fruit-details {
+            display: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .kep {
+            background-image: url('/img/bg2.jpg');
+            height: 100%;
+            width: 100%;
+        }
+        select {
+            border-color: rgb(199, 162, 92);
+            color: rgb(97, 78, 43)
         }
     </style>
 </head>
 <body>
-    <h1>fruits</h1>
-    <ol></ol>
-    <div class="fruit">
-
+    <div class="kep">
+        <div class="container">
+            <h1>Déli gyümölcsök:</h1>
+            <select id="fruit-select">
+                <option value="">Válassz gyümölcsöt...</option>
+            </select>
+            <div id="fruit-details">
+                <h2>Adatok</h2>
+                <img id="fruit-image" src="" alt="Gyümölcs képe">
+                <p><strong>Név:</strong> <span id="fruit-name"></span></p>
+                <p><strong>Leírás:</strong> <span id="fruit-descr"></span></p>
+            </div>
+        </div>
     </div>
-    <ul></ul>
+
+    <script src="data_fruits.js"></script>
     <script>
-        console.log(fruits);
-        fruits.forEach((obj)=>{
-            const li = document.createElement('li')
-            li.textContent=obj.image
-          //  document.querySelector('ul').appendChild(li)
-            document.querySelector('.fruit').innerHTML+=`<div class="doboz"><img class="img-fluid" src="img/${obj.image}"<p>${obj.descr}</p>></div>`
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('fruit-select');
+            const fruitDetails = document.getElementById('fruit-details');
+            const fruitImageElement = document.getElementById('fruit-image');
+            const fruitNameElement = document.getElementById('fruit-name');
+            const fruitDescrElement = document.getElementById('fruit-descr');
+        
+            fruits.forEach(fruit => {
+                const option = document.createElement('option');
+                option.value = fruit.name;
+                option.textContent = fruit.name;
 
-        })
+                const image = new Image();
+                image.src = fruit.image;
+                image.alt = fruit.name;
+                image.style.maxWidth = '50px';
+        
+                option.appendChild(image);
+                selectElement.appendChild(option);
+            });
 
+            selectElement.addEventListener('change', function() {
+                const selectedFruitName = this.value;
+                const selectedFruit = fruits.find(fruit => fruit.name === selectedFruitName);
+        
+                if (selectedFruit) {
+                    fruitImageElement.src = selectedFruit.image;
+                    fruitNameElement.textContent = selectedFruit.name;
+                    fruitDescrElement.textContent = selectedFruit.descr;
+                    fruitDetails.style.display = 'block';
+                } else {
+                    fruitDetails.style.display = 'none';
+                }
+            });
+        });
+        
     </script>
 </body>
 </html>
